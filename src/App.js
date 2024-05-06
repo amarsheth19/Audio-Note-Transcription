@@ -7,27 +7,15 @@ function App() {
 
 console.log("here1")
 
-  useEffect(() => {
+  /**useEffect(() => {
 
     fetch('/members').then(
       res => res.json()
     ).then(data => {console.log(data)})
-  });
+  });*/
 
   return(
     <div>
-
-      {/** {(typeof data.members === 'undefined') ? (
-        <p>Undefined...</p>
-      ) : (
-        data.members.map((member, i) => (
-          <p key={i}>{member}</p>
-        ))
-      )} */}
-
-      output
-
-
     </div>
   )
 }
