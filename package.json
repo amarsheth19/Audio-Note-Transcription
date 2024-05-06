@@ -14,7 +14,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start --ignore client",
+    "start": "concurrently \"npm run flask\" \"react-scripts start --ignore client\"",
+    "flask": "python3 C:/Users/AmarS/CapstoneFinalProject/Capstone-Final-Project/Flask/app.py",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject "
