@@ -55,29 +55,8 @@ function handleUpload(){
     console.error(err);
   });
 
-<<<<<<< Updated upstream
-  useEffect(() => {
-
-    fetch('/members').then(
-      res => res.json()
-    ).then(data => {console.log(data)})
-  });
-
-  return(
-    <div>
-
-      {/** {(typeof data.members === 'undefined') ? (
-        <p>Undefined...</p>
-      ) : (
-        data.members.map((member, i) => (
-          <p key={i}>{member}</p>
-        ))
-      )} */}
-
-      output
 
 
-=======
 }
 
   return(
@@ -91,8 +70,7 @@ function handleUpload(){
       <p></p>
       {progress.started && <progress max = "100" value = {progress.pc}></progress>}
 
-      
->>>>>>> Stashed changes
+    
     </div>
 
 
