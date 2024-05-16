@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import ProfileButton from "./components/ProfileButton";
+import ScrollBox from './components/ScrollBox';
 
 function App() {
   const [data, setData] = useState([{}]);
@@ -16,6 +18,8 @@ console.log("here1")
 
   return(
     <div>
+      <ProfileButton firstName = "Shreyas" lastName = "Yellenki"></ProfileButton>
+      
     </div>
   )
 }
