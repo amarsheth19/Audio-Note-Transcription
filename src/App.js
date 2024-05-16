@@ -18,6 +18,7 @@ function handleUpload(){
 
   const fd = new FormData();
   fd.append('file', file);
+  fd.append('id_token', 'token');
   
   setMsg("Uploading...");
   setProgress(prevState => {
