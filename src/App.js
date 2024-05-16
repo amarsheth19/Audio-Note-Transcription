@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
+import axios from 'axios';
 
 function App() {
  
@@ -60,6 +60,7 @@ function handleUpload(){
 }
 
   return(
+
   
     <div className="App">
       <h1>Uploading Files in React</h1>
@@ -70,7 +71,7 @@ function handleUpload(){
       <p></p>
       {progress.started && <progress max = "100" value = {progress.pc}></progress>}
 
-    
+   
     </div>
 
 
