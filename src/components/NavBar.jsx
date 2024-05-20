@@ -38,9 +38,7 @@ const Navbar = () => {
             height: "100%",
             display: "flex",
             alignItems: "center",
-            padding: ".25rem"
-
-            
+            padding: ".25rem"    
         },
         navList:{
             padding: "0",
