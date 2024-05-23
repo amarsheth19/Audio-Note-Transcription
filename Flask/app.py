@@ -47,7 +47,7 @@ def upload_file():
     filename = "audiofile.mp3"
     destination="/".join([target, filename])
     file.save(destination)
-    #
+    client = OpenAI(api_key="sk-proj-PxVo3vm1XoSzFH3fY1mvT3BlbkFJEKnKRuQHjqbJnnizM7xA")
     audio_file = open("Flask/audio_files/audiofile.mp3", "rb")
     transcription = client.audio.transcriptions.create(
         model="whisper-1",
@@ -55,13 +55,16 @@ def upload_file():
         response_format="text"
     )
     transcribed_files[secure_filename(file.filename)] = transcription
-    return transcription
-    """submit = "Take notes on the following lecture: " + transcription
-    response = client.completions.create(
-        model="gpt-3.5-turbo-0125",
-        prompt= submit
+    #return transcription
+    submit = transcription
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+        {"role": "system", "content": "You are summarizing text."},
+        {"role": "user", "content": "take notes on this: "  +transcription},
+        ]
     )
-    return response"""
+    return response.choices[0].message.content
 
 
 if __name__ == "__main__":
