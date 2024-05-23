@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import ProfileButton from "./components/ProfileButton";
 import ScrollBox from './components/ScrollBox';
 import {StyleSheet} from 'react-native';
@@ -6,6 +6,7 @@ import Navbar from './components/NavBar';
 import Home from './pages/Home';
 import Settings from './pages/Settings'
 import SavedNotes from './pages/SavedNotes';
+import axios from 'axios';
 
 function NewApp(){
     const mystyle = StyleSheet.create({

@@ -9,6 +9,10 @@ function ProfileButton(user) {
       alignItems: "center",
       padding: ".25rem"    
     };
+
+    const changeText = () =>{
+      
+    }
     
     return <a style = {mystyle}> {user.firstName}  {user.lastName}</a>;
 
