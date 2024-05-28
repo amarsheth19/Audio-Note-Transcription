@@ -3,12 +3,16 @@ import ProfileButton from '../components/ProfileButton';
 import {StyleSheet} from 'react-native';
 import ScrollBox from '../components/ScrollBox';
 import axios from 'axios';
+import { useNavigation, useRoute } from '@react-navigation/native';
 function Home(){
     const [file, setFile] = useState(null);
     const [msg, setMsg] = useState(null);
     const [summary, setSummary] = useState(null);
     const [progress, setProgress] =useState({started: false, pc: 0});
     var temp = "";
+    const navigation = useNavigation();
+    const route = useRoute();
+    var userId = "";
     const mystyle = StyleSheet.create({
         div:{
             backgroundColor: 'lightblue',
@@ -21,32 +25,39 @@ function Home(){
           setMsg("No file selected");
           return;
         }
-      
-        const fd = new FormData();
-        fd.append('file', file);
-        fd.append('id_token', 'token');
         
-        setMsg("Uploading...");
-        setProgress(prevState => {
-          return {...prevState, started:true}
-        })
-      
-        //sending to flask backend
-        axios.post('/upload', fd, {
-          onUploadProgress: (ProgressEvent) => { setProgress(prevState => {
-            return {...prevState, pc: ProgressEvent.progress*100}
-          })},
-        })
-        .then(res => {
-          setMsg("Upload Successful");
-          console.log("Data: " + res.data);
-          setSummary(res.data);
-        })
-        .catch(err => {
-          setMsg("Upload Unsuccessful");
-          console.error(err);
-        });
-      
+        if(route.params!=null){
+          userId  = route.params;
+          console.log("userId " + userId);
+          const fd = new FormData();
+          fd.append('file', file);
+          fd.append('id_token', userId);
+          
+          setMsg("Uploading...");
+          setProgress(prevState => {
+            return {...prevState, started:true}
+          })
+        
+          //sending to flask backend
+          axios.post('/upload', fd, {
+            onUploadProgress: (ProgressEvent) => { setProgress(prevState => {
+              return {...prevState, pc: ProgressEvent.progress*100}
+            })},
+          })
+          .then(res => {
+            setMsg("Upload Successful");
+            console.log("Data: " + res.data);
+            setSummary("Summary: "  + res.data);
+          })
+          .catch(err => {
+            setMsg("Upload Unsuccessful");
+            console.error(err);
+          });
+      }
+
+      else{
+        setSummary("You must sign in first")
+      }
       
       
       }
@@ -62,6 +73,8 @@ function Home(){
       {progress.started && <progress max = "100" value = {progress.pc}></progress>}
       <p></p>
       Summary: {summary}
+      <p></p>
+      userid: {userId}
     </div>
     );
 }

@@ -6,7 +6,9 @@ import Navbar from './components/NavBar';
 import Home from './pages/Home';
 import Settings from './pages/Settings'
 import SavedNotes from './pages/SavedNotes';
+import SignUp from './SignUp';
 import axios from 'axios';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 function NewApp(){
     const mystyle = StyleSheet.create({
@@ -16,6 +18,8 @@ function NewApp(){
             height: '1000px'
         }
     });
+    const navigation = useNavigation();
+    const route = useRoute();
     let component
     switch(window.location.pathname){
         case "/":
@@ -28,9 +32,10 @@ function NewApp(){
             component = <Settings/>
             break
     }
+    console.log("New app route params" + route.params);
     return(
     <>
-     <Navbar/>
+     <Navbar id = {route.params}/>
      <div>
         {component}
      </div>

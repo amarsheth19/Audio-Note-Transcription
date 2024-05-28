@@ -2,7 +2,8 @@ import React from "react";
 import "./NavBar.css"
 import {StyleSheet} from 'react-native';
 import ProfileButton from "./ProfileButton";
-const Navbar = () => {
+import { useNavigation, useRoute } from '@react-navigation/native';
+const Navbar = (id) => {
     const mystyle = StyleSheet.create({
         nav:{
             backgroundColor: '#C8A2C8',
@@ -52,7 +53,24 @@ const Navbar = () => {
         }
         
     });
+    var userId = id;
+    const navigation = useNavigation();
+    const route = useRoute();
 
+    function handleSavedNotes(){
+        console.log("handling daved notes");
+        console.log("user params: " + route.params);
+        if(route.params!=null){
+            userId  = route.params;
+            console.log("handling daved notes id: " + userId);
+            navigation.navigate('SavedNotes', { userId: userId });
+        }
+        else{
+            console.log("error in handling saved notes");
+        }
+
+    }
+    
     return (
        <nav className="nav" style={mystyle.nav}>
             <a href="/" className="siteTital"style={mystyle.navA}>Note Taking App</a>
@@ -61,13 +79,13 @@ const Navbar = () => {
                     <a href= "/" style={mystyle.navA}>Home</a>
                 </li>
                 <li style={mystyle.navListElement}>
-                    <a href="/SavedNotes" style={mystyle.navA} >Saved Notes</a>  
+                    <a style={mystyle.navA} onClick = {handleSavedNotes}>Saved Notes</a>  
                  </li>
                  <li>
                     <a href="/Settings" style={mystyle.navA}>Settings</a>
                 </li>
                 <li>
-                   <ProfileButton firstName = "Shreyas" lastName = "Yellenki" mystyle = {mystyle.navA}></ProfileButton>
+                   <ProfileButton username = "tempusername" mystyle = {mystyle.navA}></ProfileButton>
                 </li>
             </ul>
        </nav>
