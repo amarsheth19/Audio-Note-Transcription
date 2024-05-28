@@ -73,8 +73,6 @@ function Home(){
       {progress.started && <progress max = "100" value = {progress.pc}></progress>}
       <p></p>
       Summary: {summary}
-      <p></p>
-      userid: {userId}
     </div>
     );
 }

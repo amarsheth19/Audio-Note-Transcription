@@ -35,6 +35,7 @@ def upload_file():
     filename = "audiofile.mp3"
     destination="/".join([target, filename])
     file.save(destination)
+    
     audio_file = open("Flask/audio_files/audiofile.mp3", "rb")
     transcription = client.audio.transcriptions.create(
         model="whisper-1",
@@ -55,7 +56,7 @@ def upload_file():
     user_ref = db.collection('users').document(id_token)
     user_ref.set({secure_filename(file.filename): summary}, merge=True)
 
-    return summary + id_token
+    return summary
 
 
 if __name__ == "__main__":

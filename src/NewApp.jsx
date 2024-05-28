@@ -9,6 +9,9 @@ import SavedNotes from './pages/SavedNotes';
 import SignUp from './SignUp';
 import axios from 'axios';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 function NewApp(){
     const mystyle = StyleSheet.create({
@@ -18,6 +21,7 @@ function NewApp(){
             height: '1000px'
         }
     });
+
     const navigation = useNavigation();
     const route = useRoute();
     let component
@@ -32,7 +36,8 @@ function NewApp(){
             component = <Settings/>
             break
     }
-    console.log("New app route params" + route.params);
+    
+
     return(
     <>
      <Navbar id = {route.params}/>
