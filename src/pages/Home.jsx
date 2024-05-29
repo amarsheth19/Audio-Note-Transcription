@@ -83,6 +83,7 @@ export default Home;*/
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import EditBox from '../editBox';
 
 function Home() {
     const [file, setFile] = useState(null);
@@ -136,6 +137,7 @@ function Home() {
           <div style={styles.scrollBoxWrapper}>
               <div style={styles.scrollBox}>
                   {summary && <p>{summary}</p>}
+                  
               </div>
           </div>
       </div>
