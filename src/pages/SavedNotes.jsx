@@ -1,30 +1,5 @@
-/*import React, { Component } from 'react';
-import ProfileButton from '../components/ProfileButton';
-import {StyleSheet} from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { db } from './firebaseConfig';
-function SavedNotes(){
-    const navigation = useNavigation();
-    const route = useRoute();
-    var userId = route.params;
-    const mystyle = StyleSheet.create({
-        div:{
-            backgroundColor: 'lightblue',
-            textAlign: 'center',
-            height: '1000px'
-        }
-    });
-    return( 
-    <div style={mystyle.div}>
-      <h1>Saved Notes</h1>
-    </div>
-    );
-}
-export default SavedNotes;*/
-
-
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, TextInput, Button } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
@@ -42,35 +17,32 @@ function SavedNotes() {
     };
 
     // Check to prevent re-initialization of Firebase app
-    firebase.initializeApp(firebaseConfig);
-
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
 
     const db = firebase.firestore();
     const navigation = useNavigation();
     const route = useRoute();
     const { userId } = route.params;
-    const [userData, setUserData] = useState(null);
+    const [userData, setUserData] = useState({});
+    const [editedData, setEditedData] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    console.log(`Fetching data for user ID: ${userId}`);
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                console.log(`Fetching data for user ID: ${userId}`);
                 const docRef = db.collection("users").doc(userId);
                 const doc = await docRef.get();
                 if (doc.exists) {
-                    console.log("Document data:", doc.data());
                     const { username, email, ...filteredData } = doc.data();
-                    console.log("filtered:", filteredData);
                     setUserData(filteredData);
+                    setEditedData(filteredData); // Initialize edited data with fetched data
                 } else {
-                    console.log("No such document!");
                     setUserData(null);
                 }
             } catch (error) {
-                console.error("Error fetching document: ", error);
                 setError(error);
             } finally {
                 setLoading(false);
@@ -79,6 +51,24 @@ function SavedNotes() {
 
         fetchUserData();
     }, [userId]);
+
+    const handleInputChange = (key, value) => {
+        setEditedData(prevData => ({
+            ...prevData,
+            [key]: value,
+        }));
+    };
+
+    const handleSaveChanges = async () => {
+        try {
+            await db.collection("users").doc(userId).set(editedData, { merge: true });
+            setUserData(editedData);
+            alert("Changes saved successfully!");
+        } catch (error) {
+            console.error("Error saving document: ", error);
+            alert("Failed to save changes. Please try again.");
+        }
+    };
 
     const mystyle = StyleSheet.create({
         container: {
@@ -118,6 +108,24 @@ function SavedNotes() {
             shadowRadius: 3.84,
             elevation: 5,
             width: '100%',
+        },
+        input: {
+            borderColor: 'gray',
+            borderWidth: 1,
+            padding: 5,
+            borderRadius: 5,
+            marginTop: 5,
+        },
+        saveButton: {
+            marginTop: 20,
+            padding: 10,
+            backgroundColor: '#007BFF',
+            borderRadius: 5,
+        },
+        saveButtonText: {
+            color: 'white',
+            fontWeight: 'bold',
+            textAlign: 'center',
         }
     });
 
@@ -132,11 +140,20 @@ function SavedNotes() {
                 <ScrollView style={mystyle.scrollView}>
                     {Object.entries(userData).map(([key, value]) => (
                         <View key={key} style={mystyle.dataItem}>
-                            <Text style={mystyle.content}>
-                                {key}: {typeof value === 'object' ? JSON.stringify(value) : value}
-                            </Text>
+                            <Text style={mystyle.content}>{key}:</Text>
+                            <TextInput
+                                style={mystyle.input}
+                                value={editedData[key]}
+                                onChangeText={text => handleInputChange(key, text)}
+                                multiline
+                            />
                         </View>
                     ))}
+                    <Button
+                        title="Save Changes"
+                        onPress={handleSaveChanges}
+                        color="#007BFF"
+                    />
                 </ScrollView>
             ) : (
                 <Text style={mystyle.content}>No user data found</Text>

@@ -137,7 +137,6 @@ function Home() {
           <div style={styles.scrollBoxWrapper}>
               <div style={styles.scrollBox}>
                   {summary && <p>{summary}</p>}
-                  
               </div>
           </div>
       </div>
