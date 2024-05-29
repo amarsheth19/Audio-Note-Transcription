@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 function ProfileButton(user) {
   
@@ -9,12 +10,23 @@ function ProfileButton(user) {
       alignItems: "center",
       padding: ".25rem"    
     };
+    const navigation = useNavigation();
 
     const changeText = () =>{
       
     }
+
+    function handleSignIn(){
+      console.log("in handleSign in profile");
+      navigation.navigate('SignUp');
+    }
+
+    function handleLogIn(){
+      console.log("in handleSign in profile");
+      navigation.navigate('Login');
+    }
     
-    return <a style = {mystyle}> {user.firstName}  {user.lastName}</a>;
+    return <a style = {mystyle}  onClick={handleLogIn}> {user.username}</a>;
 
    
   }
