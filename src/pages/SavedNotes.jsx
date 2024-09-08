@@ -8,9 +8,9 @@ import 'firebase/compat/firestore';
 function SavedNotes() {
     const firebaseConfig = {
         apiKey: "AIzaSyAoHqmKxapjNj2_KI1PCwmYEpBhDzplwqI",
-        authDomain: "note-taker-b550d.firebaseapp.com",
-        projectId: "note-taker-b550d",
-        storageBucket: "note-taker-b550d.appspot.com",
+        authDomain: "Audio-Note-Transcription-b550d.firebaseapp.com",
+        projectId: "Audio-Note-Transcription-b550d",
+        storageBucket: "Audio-Note-Transcription-b550d.appspot.com",
         messagingSenderId: "508381657343",
         appId: "1:508381657343:web:49f24213e68cf0693a74ca",
         measurementId: "G-ZB5LKXBKZ7"
