@@ -32,6 +32,9 @@ function NewApp(){
         case "/Audio-Note-Transcription":
             component = <Home/>
             break
+        case "/Audio-Note-Transcription/":
+            component = <Home/>
+            break
          case "/SavedNote":
              component = <SavedNotes/>
             break
