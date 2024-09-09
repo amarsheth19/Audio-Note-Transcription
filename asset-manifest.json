@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Audio-Note-Transcription/static/css/main.3ec35b26.css",
-    "main.js": "/Audio-Note-Transcription/static/js/main.db29e24a.js",
+    "main.js": "/Audio-Note-Transcription/static/js/main.07086316.js",
     "index.html": "/Audio-Note-Transcription/index.html",
     "main.3ec35b26.css.map": "/Audio-Note-Transcription/static/css/main.3ec35b26.css.map",
-    "main.db29e24a.js.map": "/Audio-Note-Transcription/static/js/main.db29e24a.js.map"
+    "main.07086316.js.map": "/Audio-Note-Transcription/static/js/main.07086316.js.map"
   },
   "entrypoints": [
     "static/css/main.3ec35b26.css",
-    "static/js/main.db29e24a.js"
+    "static/js/main.07086316.js"
   ]
 }
